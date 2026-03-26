@@ -4,12 +4,12 @@ import plotly.express as px
 
 st.set_page_config(page_title="Finance + Media + Reputation", layout="wide")
 
-st.title("📊 Комплексний дашборд: Фінанси + Медіа + Репутація")
+st.title("Комплексний дашборд: Фінанси + Медіа + Репутація")
 
 # ---------- GITHUB CONFIG ----------
-st.subheader("🔗 Дані з GitHub")
+st.subheader("Дані з GitHub")
 
-repo_url = st.text_input("Встав посилання на GitHub репозиторій (без /blob/...)", "https://raw.githubusercontent.com/USERNAME/REPO/main/")
+repo_url = st.text_input("Встав посилання на GitHub репозиторій", "------Посилання------")
 
 finance_url = repo_url + "finance.csv"
 media_url = repo_url + "media.csv"
@@ -47,7 +47,7 @@ merged_df['total_score'] = (
 )
 
 # ---------- ВКЛАДКИ ----------
-tab1, tab2, tab3 = st.tabs(["💰 Фінанси", "📰 Медіа", "⭐ Публічний імідж"])
+tab1, tab2, tab3 = st.tabs(["Фінанси", "Медіа", "Публічний імідж"])
 
 with tab1:
     st.subheader("Аналіз фінансів")
@@ -69,7 +69,7 @@ with tab3:
         st.plotly_chart(fig_rep, use_container_width=True)
 
 # ---------- РЕЙТИНГ ----------
-st.subheader("🏆 Інтегральний рейтинг компаній")
+st.subheader("Інтегральний рейтинг компаній")
 
 rating_df = merged_df[['company', 'total_score']].sort_values(by='total_score', ascending=False)
 st.dataframe(rating_df)
@@ -77,4 +77,3 @@ st.dataframe(rating_df)
 fig_rating = px.bar(rating_df, x='company', y='total_score', title='Загальний рейтинг')
 st.plotly_chart(fig_rating, use_container_width=True)
 
-st.success("🚀 Дані автоматично підтягуються з GitHub + побудований інтегральний рейтинг")

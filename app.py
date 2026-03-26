@@ -29,8 +29,8 @@ def generate_data(n=500):
     return pd.DataFrame(data)
 
 # Завантаження або генерація даних
-st.sidebar.header("Налаштування")
-use_sample = st.sidebar.checkbox("Використати тестові дані", True)
+# st.sidebar.header("Налаштування")
+# use_sample = st.sidebar.checkbox("Використати тестові дані", True)
 
 if use_sample:
     df = generate_data()

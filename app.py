@@ -32,15 +32,15 @@ def generate_data(n=500):
 # st.sidebar.header("Налаштування")
 # use_sample = st.sidebar.checkbox("Використати тестові дані", True)
 
-if use_sample:
-    df = generate_data()
-else:
-    uploaded_file = st.sidebar.file_uploader("Завантаж CSV", type=["csv"])
-    if uploaded_file:
-        df = pd.read_csv(uploaded_file)
-    else:
-        st.warning("Завантаж файл або обери тестові дані")
-        st.stop()
+# if use_sample:
+#     df = generate_data()
+# else:
+#     uploaded_file = st.sidebar.file_uploader("Завантаж CSV", type=["csv"])
+#     if uploaded_file:
+#         df = pd.read_csv(uploaded_file)
+#     else:
+#         st.warning("Завантаж файл або обери тестові дані")
+#         st.stop()
 
 st.subheader("Дані про IP-адреси атак")
 st.dataframe(df)

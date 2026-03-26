@@ -6,21 +6,23 @@ from datetime import datetime, timedelta
 
 st.set_page_config(page_title="Cyber Threat Monitoring", layout="wide")
 
-st.title("Система моніторингу кіберзагроз")
+st.title("🔐 Система моніторингу кіберзагроз")
 
+# ---------- Генерація тестових даних ----------
 def generate_data(n=500):
     np.random.seed(42)
     base_date = datetime.now()
     data = []
-    countries = ['USA', 'China', 'Germany', 'Ukraine', 'India']
+    countries = ['USA', 'China', 'Russia', 'Germany', 'Ukraine', 'India']
 
+    # Створюємо пул IP (щоб вони повторювались)
     ip_pool = [
         f"{np.random.randint(1,255)}.{np.random.randint(1,255)}.{np.random.randint(1,255)}.{np.random.randint(1,255)}"
         for _ in range(50)
     ]
 
     for _ in range(n):
-        ip = np.random.choice(ip_pool)  
+        ip = np.random.choice(ip_pool)  # беремо IP з пулу → будуть повтори
         country = np.random.choice(countries)
         date = base_date - timedelta(days=np.random.randint(0, 10))
 
@@ -32,17 +34,20 @@ def generate_data(n=500):
 
     return pd.DataFrame(data)
 
+# Використовуємо тільки тестові дані (без sidebar)
 df = generate_data()
 
-st.subheader("Дані про IP-адреси атак")
+st.subheader("📊 Дані про IP-адреси атак")
 st.dataframe(df)
 
-st.markdown("Аналіз IP-адрес")
+# ---------- 1. Дані про IP ----------
+st.markdown("### 1️⃣ Аналіз IP-адрес")
 ip_counts = df['ip'].value_counts().reset_index()
 ip_counts.columns = ['IP', 'Count']
 st.dataframe(ip_counts.head(10))
 
-st.markdown("Геолокація атак")
+# ---------- 2. Карта атак ----------
+st.markdown("### 2️⃣ Геолокація атак")
 country_counts = df['country'].value_counts().reset_index()
 country_counts.columns = ['country', 'attacks']
 
@@ -53,15 +58,17 @@ fig_map = px.choropleth(country_counts,
                         title='Карта атак')
 st.plotly_chart(fig_map, use_container_width=True)
 
-st.markdown("Найбільш активна країна")
+# ---------- 3. Країна з найбільшою активністю ----------
+st.markdown("### 3️⃣ Найбільш активна країна")
 most_active = country_counts.iloc[0]
 st.success(f"Найбільше атак з країни: {most_active['country']} ({most_active['attacks']} атак)")
 
-st.markdown("Тренд атак по днях")
+# ---------- 4. Трендовий аналіз ----------
+st.markdown("### 4️⃣ Тренд атак по днях")
 df['date'] = pd.to_datetime(df['timestamp']).dt.date
 trend = df.groupby('date').size().reset_index(name='attacks')
 
 fig_trend = px.line(trend, x='date', y='attacks', markers=True, title='Атаки по днях')
 st.plotly_chart(fig_trend, use_container_width=True)
 
-
+st.info("Система дозволяє аналізувати кіберзагрози в реальному часі 🚀")

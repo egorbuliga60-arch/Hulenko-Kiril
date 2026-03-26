@@ -13,7 +13,7 @@ def generate_data(n=500):
     np.random.seed(42)
     base_date = datetime.now()
     data = []
-    countries = ['USA', 'China', 'Russia', 'Germany', 'Ukraine', 'India']
+    countries = ['USA', 'China', 'Germany', 'Ukraine', 'India']
 
     for _ in range(n):
         ip = f"{np.random.randint(1,255)}.{np.random.randint(1,255)}.{np.random.randint(1,255)}.{np.random.randint(1,255)}"

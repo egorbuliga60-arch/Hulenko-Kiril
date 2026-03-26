@@ -13,7 +13,7 @@ def generate_data(n=500):
     np.random.seed(42)
     base_date = datetime.now()
     data = []
-    countries = ['USA', 'China', 'Germany', 'Ukraine', 'India']
+    countries = ['USA', 'China', 'Russia', 'Germany', 'Ukraine', 'India']
 
     for _ in range(n):
         ip = f"{np.random.randint(1,255)}.{np.random.randint(1,255)}.{np.random.randint(1,255)}.{np.random.randint(1,255)}"
@@ -28,19 +28,8 @@ def generate_data(n=500):
 
     return pd.DataFrame(data)
 
-# Завантаження або генерація даних
-# st.sidebar.header("Налаштування")
-# use_sample = st.sidebar.checkbox("Використати тестові дані", True)
-
-# if use_sample:
-#     df = generate_data()
-# else:
-#     uploaded_file = st.sidebar.file_uploader("Завантаж CSV", type=["csv"])
-#     if uploaded_file:
-#         df = pd.read_csv(uploaded_file)
-#     else:
-#         st.warning("Завантаж файл або обери тестові дані")
-#         st.stop()
+# Використовуємо тільки тестові дані (без sidebar)
+df = generate_data()
 
 st.subheader("Дані про IP-адреси атак")
 st.dataframe(df)
@@ -76,3 +65,4 @@ trend = df.groupby('date').size().reset_index(name='attacks')
 fig_trend = px.line(trend, x='date', y='attacks', markers=True, title='Атаки по днях')
 st.plotly_chart(fig_trend, use_container_width=True)
 
+st.info("Система дозволяє аналізувати кіберзагрози в реальному часі")

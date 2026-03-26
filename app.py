@@ -42,7 +42,7 @@ else:
         st.warning("Завантаж файл або обери тестові дані")
         st.stop()
 
-st.subheader("📊 Дані про IP-адреси атак")
+st.subheader("Дані про IP-адреси атак")
 st.dataframe(df)
 
 # ---------- 1. Дані про IP ----------

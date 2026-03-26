@@ -76,4 +76,3 @@ trend = df.groupby('date').size().reset_index(name='attacks')
 fig_trend = px.line(trend, x='date', y='attacks', markers=True, title='Атаки по днях')
 st.plotly_chart(fig_trend, use_container_width=True)
 
-st.info("Система дозволяє аналізувати кіберзагрози в реальному часі ")
